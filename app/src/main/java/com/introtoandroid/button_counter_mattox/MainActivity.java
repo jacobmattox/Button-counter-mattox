@@ -8,11 +8,11 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private int counterVar = 0;
-    Button buttonPlusOne;
-    Button buttonMinusOne;
-    Button buttonReset;
-    TextView counterDisplay;
+    private int counterVar;
+    private Button buttonPlusOne;
+    private Button buttonMinusOne;
+    private Button buttonReset;
+    private TextView counterDisplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +24,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonMinusOne.setOnClickListener(this);
         buttonReset = (Button) findViewById(R.id.buttonReset);
         buttonReset.setOnClickListener(this);
-        counterDisplay = (TextView) findViewById(R.id.textView);
+        counterDisplay = findViewById(R.id.textView);
+        counterVar = Integer.parseInt(counterDisplay.getText().toString());
 
 
     }
