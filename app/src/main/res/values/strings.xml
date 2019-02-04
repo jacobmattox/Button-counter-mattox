@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Button-counter-mattox</string>
+    <string name="startText">0</string>
 </resources>
