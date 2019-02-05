@@ -1,5 +1,6 @@
 package com.introtoandroid.button_counter_mattox;
 
+import android.support.constraint.Constraints;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,7 @@ public class MainActivity extends AppCompatActivity{
     private Button buttonMinusOne;
     private Button buttonReset;
     private TextView counterDisplay;
+    private Constraints constraint;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity{
         buttonReset = (Button) findViewById(R.id.buttonReset);
         counterDisplay = (TextView) findViewById(R.id.textView);
 
+
         //can create setOnClickListener either way
         //buttonPlusOne.setOnClickListener(this);
         buttonPlusOne.setOnClickListener(new View.OnClickListener() {
@@ -31,6 +34,7 @@ public class MainActivity extends AppCompatActivity{
             public void onClick(View v) {
                 counterVar++;
                 counterDisplay.setText(Integer.toString(counterVar));
+               // counterDisplay.setTextColor(newColorString(counterVar, counterDisplay.getTextColors().toString()));
             }
         });
 
@@ -86,4 +90,14 @@ public class MainActivity extends AppCompatActivity{
         counterVar = Integer.parseInt(savedInstanceState.getString("counter"));
         counterDisplay.setText(Integer.toString(counterVar));
     }
+//    public int newColorString(int counter, String currColor){
+//        //takes "#color and modifies it into a new color
+//        currColor = currColor.substring(1, currColor.length());
+//        int newColor = Integer.parseInt(currColor) + (counter * 5);
+//        if (newColor < 0)
+//                newColor = newColor * - 1;
+//
+//        return Integer.parseInt(""+newColor, 16);
+//
+//    }
 }
