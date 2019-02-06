@@ -1,11 +1,18 @@
 package com.introtoandroid.button_counter_mattox;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.support.constraint.Constraints;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import java.lang.Math;
+
+import static java.lang.Math.pow;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -14,7 +21,7 @@ public class MainActivity extends AppCompatActivity{
     private Button buttonMinusOne;
     private Button buttonReset;
     private TextView counterDisplay;
-    private Constraints constraint;
+    private LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +32,7 @@ public class MainActivity extends AppCompatActivity{
         buttonMinusOne = (Button) findViewById(R.id.buttonMinusOne);
         buttonReset = (Button) findViewById(R.id.buttonReset);
         counterDisplay = (TextView) findViewById(R.id.textView);
+        linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
 
 
         //can create setOnClickListener either way
@@ -34,7 +42,10 @@ public class MainActivity extends AppCompatActivity{
             public void onClick(View v) {
                 counterVar++;
                 counterDisplay.setText(Integer.toString(counterVar));
-               // counterDisplay.setTextColor(newColorString(counterVar, counterDisplay.getTextColors().toString()));
+               // counterDisplay.setTextColor(newColorString(counterVar, counterDisplay.getTextColors().toString()))
+                counterDisplay.setTextColor(Color.parseColor(newColorString(counterVar)));
+                linearLayout.setBackgroundColor(Color.parseColor((newColorString(counterVar -1))));
+
             }
         });
 
@@ -45,6 +56,8 @@ public class MainActivity extends AppCompatActivity{
             public void onClick(View v) {
                 counterVar = counterVar - 1;
                 counterDisplay.setText(Integer.toString(counterVar));
+                counterDisplay.setTextColor(Color.parseColor(newColorString(counterVar)));
+                linearLayout.setBackgroundColor(Color.parseColor((newColorString(counterVar -1))));
             }
         });
 
@@ -55,6 +68,8 @@ public class MainActivity extends AppCompatActivity{
             public void onClick(View v) {
                 counterVar = 0;
                 counterDisplay.setText(Integer.toString(counterVar));
+                counterDisplay.setTextColor(Color.parseColor("Black"));
+                linearLayout.setBackgroundColor(Color.parseColor("White"));
             }
         });
     }
@@ -82,6 +97,8 @@ public class MainActivity extends AppCompatActivity{
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString("counter", counterDisplay.getText().toString());
+//        outState.putString("numberColor", counterDisplay.getTextColors().toString());
+//        outState.putString("background", linearLayout.getBackground().toString());
     }
 
     @Override
@@ -89,15 +106,15 @@ public class MainActivity extends AppCompatActivity{
         super.onRestoreInstanceState(savedInstanceState);
         counterVar = Integer.parseInt(savedInstanceState.getString("counter"));
         counterDisplay.setText(Integer.toString(counterVar));
+//        counterDisplay.setTextColor(Color.parseColor(savedInstanceState.getString("numberColor")));
+//        linearLayout.setBackgroundColor(Color.parseColor(savedInstanceState.getString("background")));
+
     }
-//    public int newColorString(int counter, String currColor){
-//        //takes "#color and modifies it into a new color
-//        currColor = currColor.substring(1, currColor.length());
-//        int newColor = Integer.parseInt(currColor) + (counter * 5);
-//        if (newColor < 0)
-//                newColor = newColor * - 1;
-//
-//        return Integer.parseInt(""+newColor, 16);
-//
-//    }
+    public String newColorString(double counter){
+        //takes counter and mods it into a new color
+        String[] colors = {"Black", "White", "Blue", "Red"};
+
+        return colors[(int)Math.sqrt((counter * counter)) % 4];
+
+    }
 }
