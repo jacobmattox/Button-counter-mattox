@@ -1,18 +1,13 @@
 package com.introtoandroid.button_counter_mattox;
 
-import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.support.constraint.Constraints;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.lang.Math;
-
-import static java.lang.Math.pow;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -22,6 +17,8 @@ public class MainActivity extends AppCompatActivity{
     private Button buttonReset;
     private TextView counterDisplay;
     private LinearLayout linearLayout;
+    private String currBackgroundColor;
+    private String currNumberColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +39,10 @@ public class MainActivity extends AppCompatActivity{
             public void onClick(View v) {
                 counterVar++;
                 counterDisplay.setText(Integer.toString(counterVar));
-               // counterDisplay.setTextColor(newColorString(counterVar, counterDisplay.getTextColors().toString()))
-                counterDisplay.setTextColor(Color.parseColor(newColorString(counterVar)));
-                linearLayout.setBackgroundColor(Color.parseColor((newColorString(counterVar -1))));
+                currNumberColor = newColorString(counterVar);
+                counterDisplay.setTextColor(Color.parseColor(currNumberColor));
+                currBackgroundColor = newColorString(counterVar -1);
+                linearLayout.setBackgroundColor(Color.parseColor((currBackgroundColor)));
 
             }
         });
@@ -56,8 +54,10 @@ public class MainActivity extends AppCompatActivity{
             public void onClick(View v) {
                 counterVar = counterVar - 1;
                 counterDisplay.setText(Integer.toString(counterVar));
-                counterDisplay.setTextColor(Color.parseColor(newColorString(counterVar)));
-                linearLayout.setBackgroundColor(Color.parseColor((newColorString(counterVar -1))));
+                currNumberColor = newColorString(counterVar);
+                counterDisplay.setTextColor(Color.parseColor(currNumberColor));
+                currBackgroundColor = newColorString(counterVar -1);
+                linearLayout.setBackgroundColor(Color.parseColor((currBackgroundColor)));
             }
         });
 
@@ -68,8 +68,10 @@ public class MainActivity extends AppCompatActivity{
             public void onClick(View v) {
                 counterVar = 0;
                 counterDisplay.setText(Integer.toString(counterVar));
-                counterDisplay.setTextColor(Color.parseColor("Black"));
-                linearLayout.setBackgroundColor(Color.parseColor("White"));
+                currNumberColor = "Black";
+                counterDisplay.setTextColor(Color.parseColor(currNumberColor));
+                currBackgroundColor = "White";
+                linearLayout.setBackgroundColor(Color.parseColor(currBackgroundColor));
             }
         });
     }
@@ -97,17 +99,19 @@ public class MainActivity extends AppCompatActivity{
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString("counter", counterDisplay.getText().toString());
-//        outState.putString("numberColor", counterDisplay.getTextColors().toString());
-//        outState.putString("background", linearLayout.getBackground().toString());
+        outState.putString("background", currBackgroundColor);
+        outState.putString("numberColor", currNumberColor);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         counterVar = Integer.parseInt(savedInstanceState.getString("counter"));
+        currNumberColor = savedInstanceState.getString("numberColor");
+        currBackgroundColor = savedInstanceState.getString("background");
         counterDisplay.setText(Integer.toString(counterVar));
-//        counterDisplay.setTextColor(Color.parseColor(savedInstanceState.getString("numberColor")));
-//        linearLayout.setBackgroundColor(Color.parseColor(savedInstanceState.getString("background")));
+        linearLayout.setBackgroundColor(Color.parseColor(currBackgroundColor));
+        counterDisplay.setTextColor(Color.parseColor(currNumberColor));
 
     }
     public String newColorString(double counter){
