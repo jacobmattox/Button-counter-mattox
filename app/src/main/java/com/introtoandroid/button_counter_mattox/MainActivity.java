@@ -75,26 +75,6 @@ public class MainActivity extends AppCompatActivity{
             }
         });
     }
-    //if implementing View.setOnClickListener then you need to define onClick as below
-//
-//    @Override
-//    public void onClick(View v) {
-//
-//        if(v.getId() == R.id.buttonPlusOne){
-//            counterVar++;
-//            counterDisplay.setText(Integer.toString(counterVar));
-//        }
-//        else if(v.getId() == R.id.buttonMinusOne){
-//            counterVar = counterVar - 1;
-//            counterDisplay.setText(Integer.toString(counterVar));
-//        }
-//        else if(v.getId() == R.id.buttonReset){
-//            counterVar = 0;
-//            counterDisplay.setText(Integer.toString(counterVar));
-//        }
-//
-//    }
-
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -121,4 +101,25 @@ public class MainActivity extends AppCompatActivity{
         return colors[(int)Math.sqrt((counter * counter)) % 4];
 
     }
+    //if implementing View.setOnClickListener then you need to define onClick as below
+//
+//    @Override
+//    public void onClick(View v) {
+//
+//        if(v.getId() == R.id.buttonPlusOne){
+//            counterVar++;
+//            counterDisplay.setText(Integer.toString(counterVar));
+//        }
+//        else if(v.getId() == R.id.buttonMinusOne){
+//            counterVar = counterVar - 1;
+//            counterDisplay.setText(Integer.toString(counterVar));
+//        }
+//        else if(v.getId() == R.id.buttonReset){
+//            counterVar = 0;
+//            counterDisplay.setText(Integer.toString(counterVar));
+//        }
+//
+//    }
+
+
 }
